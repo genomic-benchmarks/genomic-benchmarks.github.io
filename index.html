@@ -1,278 +1,501 @@
-
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-							<style>
-								body {
-									background-color: white; /* Ensure the iframe has a white background */
-								}
-
-								
-							</style>
-                        </head>
-                        <body>
-                            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genomic Benchmarks</title>
-    
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0fdfa',
-                            100: '#ccfbf1',
-                            500: '#14b8a6', 
-                            600: '#0d9488',
-                            900: '#134e4a',
-                        }
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'fade-out': 'fadeOut 0.8s ease-in forwards',
-                        'slow-pulse': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        fadeOut: {
-                            '0%': { opacity: '1' },
-                            '100%': { opacity: '0' },
-                        }
-                    }
-                }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genomic Benchmarks</title>
+  <meta name="description" content="Quality-curated genomic benchmarks for fair and reproducible ML evaluation.">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#14b8a6',
+              600: '#0d9488',
+              900: '#134e4a',
             }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+            'fade-out': 'fadeOut 0.8s ease-in forwards',
+            'slow-pulse': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            fadeOut: {
+              '0%': { opacity: '1' },
+              '100%': { opacity: '0' },
+            }
+          }
         }
-    </script>
+      }
+    }
+  </script>
 
-    <style>
-        /* Cursor blinking effect */
-        .cursor-blink::after {
-            content: '|';
-            animation: blink 1s step-end infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+  <style>
+    .cursor-blink::after {
+      content: '|';
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    body { transition: background-color 0.3s, color 0.3s; }
 
-        body { transition: background-color 0.3s, color 0.3s; }
-        
-        /* Ensure the main wrapper takes up full viewport height */
-        .full-height-wrapper {
-            min-height: 100vh;
-            min-height: 100dvh; /* Fallback for modern mobile browsers */
-        }
-    </style>
+    .full-height-wrapper {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    /* Scroll-triggered reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .animate-slow-pulse, .cursor-blink::after { animation: none; }
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-slate-900 dark:text-gray-100 flex flex-col">
 
-    <!-- Navigation Bar -->
-    <nav class="fixed w-full z-50 top-0 left-0 border-b border-gray-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                
-                <!-- Left: Project Name -->
-                <a href="#" class="text-xl font-bold tracking-tight hover:text-brand-600 dark:hover:text-brand-500 transition-colors">
-                    Genomic Benchmarks
-                </a>
+<body class="bg-gray-50 text-gray-900 dark:bg-slate-900 dark:text-gray-100 flex flex-col font-sans">
 
-                <!-- Right: Controls -->
-                <div class="flex items-center space-x-4">
-                    
-                    <!-- Theme Toggle Button -->
-                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500" aria-label="Toggle Dark Mode">
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    </button>
+  <!-- Navigation Bar -->
+  <nav class="fixed w-full z-50 top-0 left-0 border-b border-gray-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
 
-                    <!-- GitHub Link -->
-                    <a href="https://github.com/genomic-benchmarks" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-900 hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 transition-all">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
-                        </svg>
-                        GitHub
-                    </a>
-                </div>
-            </div>
+        <a href="#top" class="text-xl font-bold tracking-tight hover:text-brand-600 dark:hover:text-brand-500 transition-colors">
+          Genomic Benchmarks
+        </a>
+
+        <div class="flex items-center space-x-1 sm:space-x-4">
+
+          <!-- Section links -->
+          <div class="hidden md:flex items-center space-x-1 text-sm font-medium">
+            <a href="#why" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Why</a>
+            <a href="#projects" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Projects</a>
+            <a href="#start" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Get started</a>
+            <a href="#contact" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Contact</a>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500" aria-label="Toggle dark mode">
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          </button>
+
+          <!-- GitHub Link -->
+          <a href="https://github.com/genomic-benchmarks" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-900 hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 transition-all">
+            <svg class="w-4 h-4 sm:mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="hidden sm:inline">GitHub</span>
+          </a>
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Main Content Area (Landing Page Only) -->
-    <main class="relative overflow-hidden pt-16">
-        
-        <!-- Decorative Background Elements -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full blur-3xl -z-10 animate-slow-pulse"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl -z-10 animate-slow-pulse" style="animation-delay: 2s;"></div>
+  <main id="top" class="relative overflow-hidden pt-16">
 
-        <!-- Hero Section -->
-        <section class="flex items-center justify-center full-height-wrapper">
-            <div class="text-center px-4 max-w-4xl mx-auto relative z-10">
-                
-                <!-- Title -->
-                <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 animate-fade-in-up">
-                    Genomic Benchmarks
-                </h1>
+    <!-- Decorative Background Elements -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full blur-3xl -z-10 animate-slow-pulse"></div>
+    <div class="absolute bottom-3/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl -z-10 animate-slow-pulse" style="animation-delay: 2s;"></div>
 
-                <!-- Container for Rotating Text -->
-                <div id="rotator-container" class="h-12 md:h-16 flex items-center justify-center mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
-                    <span class="text-xl md:text-3xl text-gray-500 dark:text-gray-400">
-                        We provide 
-                        <span id="rotator" class="text-brand-600 dark:text-brand-500 font-semibold cursor-blink"></span>
-                    </span>
-                </div>
+    <!-- ============ HERO ============ -->
+    <section class="flex items-center justify-center full-height-wrapper">
+      <div class="text-center px-4 max-w-4xl mx-auto relative z-10">
 
-                <!-- Subtitle (Hidden initially) -->
-                <p id="subtitle" class="hidden text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                    Quality‑curated genomic benchmarks for fair and reproducible ML evaluation.
-                </p>
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 animate-fade-in-up">
+          Genomic Benchmarks
+        </h1>
+
+        <div id="rotator-container" class="h-12 md:h-16 flex items-center justify-center mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+          <span class="text-xl md:text-3xl text-gray-500 dark:text-gray-400">
+            We provide
+            <span id="rotator" class="text-brand-600 dark:text-brand-500 font-semibold cursor-blink"></span>
+          </span>
+        </div>
+
+        <p id="subtitle" class="hidden text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          Quality&#8209;curated genomic benchmarks for fair and reproducible ML evaluation.
+        </p>
+
+        <!-- Calls to action, revealed with the subtitle -->
+        <div id="hero-actions" class="hidden mt-10 flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <a href="https://github.com/genomic-benchmarks/genomic-benchmarks-qc" target="_blank" rel="noopener"
+             class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-white bg-brand-600 hover:bg-brand-500 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+            Try genomic-benchmarks-qc
+          </a>
+          <a href="#why"
+             class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium border border-gray-300 dark:border-slate-700 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500">
+            What we do
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHY ============ -->
+    <section id="why" class="scroll-mt-20 py-24 px-4 border-t border-gray-100 dark:border-slate-800">
+      <div class="max-w-3xl mx-auto reveal">
+        <p class="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-500 mb-4">The problem</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-6">
+          A high score can mean the model learned biology &mdash; or that it found a shortcut.
+        </h2>
+        <div class="space-y-4 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p>
+            If the negative sequences in a dataset are shorter than the positives, a model that measures
+            length alone will beat a model that reads the sequence. If the classes differ in GC content,
+            or every sequence in one class begins with the same adapter, or the test set quietly repeats
+            the training set, the reported accuracy is measuring the dataset, not the method.
+          </p>
+          <p>
+            These flaws are easy to introduce and hard to spot by eye. We build the tools that find them,
+            and curate the datasets that don't have them, so that benchmark results mean what they claim to.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="scroll-mt-20 py-24 px-4 bg-white dark:bg-slate-950/40 border-y border-gray-100 dark:border-slate-800">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="max-w-3xl mb-14 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-500 mb-4">Projects</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Three pieces, one ecosystem</h2>
+          <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            Check a dataset, get a clean one, compare methods on it.
+          </p>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+
+          <!-- QC -->
+          <article class="reveal flex flex-col p-7 rounded-xl border border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-900 hover:border-brand-500 dark:hover:border-brand-500 transition-colors">
+            <span class="self-start mb-4 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-100 text-brand-900 dark:bg-brand-900 dark:text-brand-100">
+              Available now
+            </span>
+            <h3 class="font-mono text-lg font-semibold mb-3">genomic-benchmarks-qc</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed flex-1">
+              Automated quality control for genomic ML datasets. Scores the biases, duplicates and
+              train/test leakage a classifier could exploit, and gives you a standalone HTML report
+              plus a CSV you can put in CI.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium">
+              <a href="https://genomic-benchmarks.github.io/genomic-benchmarks-qc/" class="text-brand-600 dark:text-brand-500 hover:underline">Documentation</a>
+              <a href="https://github.com/genomic-benchmarks/genomic-benchmarks-qc" target="_blank" rel="noopener" class="text-brand-600 dark:text-brand-500 hover:underline">GitHub</a>
+              <a href="https://pypi.org/project/genomic-benchmarks-qc/" target="_blank" rel="noopener" class="text-brand-600 dark:text-brand-500 hover:underline">PyPI</a>
             </div>
-        </section>
+          </article>
 
-    </main>
+          <!-- Datasets -->
+          <article class="reveal flex flex-col p-7 rounded-xl border border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-900" style="transition-delay: 0.1s;">
+            <span class="self-start mb-4 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-700 dark:bg-slate-800 dark:text-gray-300">
+              In development
+            </span>
+            <h3 class="font-mono text-lg font-semibold mb-3">genomic-benchmarks-data</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed flex-1">
+              Standardized, metadata-rich access to curated DNA and RNA datasets &mdash; every one of them
+              shipped with the QC report that says what it is and is not suitable for.
+            </p>
+            <div class="mt-6 text-sm text-gray-400 dark:text-gray-500">Coming soon</div>
+          </article>
 
-    <footer class="py-6 text-center text-sm text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-slate-800">
-        &copy; 2026 Genomic Benchmarks. All rights reserved.
-    </footer>
+          <!-- Leaderboard -->
+          <article class="reveal flex flex-col p-7 rounded-xl border border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-900" style="transition-delay: 0.2s;">
+            <span class="self-start mb-4 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-700 dark:bg-slate-800 dark:text-gray-300">
+              Planned
+            </span>
+            <h3 class="font-mono text-lg font-semibold mb-3">Leaderboard</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed flex-1">
+              A public evaluation hub with reproducible baselines and community submissions, so that two
+              reported numbers can actually be compared.
+            </p>
+            <div class="mt-6 text-sm text-gray-400 dark:text-gray-500">Coming soon</div>
+          </article>
 
-    <!-- JavaScript Logic -->
-    <script>
-        // --- 1. Typing Animation Logic ---
-        const words = ["QC", "Datasets", "Leaderboard"];
-        const rotatorElement = document.getElementById('rotator');
-        const rotatorContainer = document.getElementById('rotator-container');
-        const subtitleElement = document.getElementById('subtitle');
-        
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typeSpeed = 100;
-        
-        // Flag to track if we are done with the first full cycle
-        let finishedCycle = false; 
+        </div>
 
-        function type() {
-            const currentWord = words[wordIndex];
-            
-            if (isDeleting) {
-                rotatorElement.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-                typeSpeed = 50; 
-            } else {
-                rotatorElement.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-                typeSpeed = 150; 
-            }
+        <p class="mt-10 text-sm text-gray-500 dark:text-gray-400 reveal">
+          A manuscript describing the full ecosystem is in preparation.
+        </p>
+      </div>
+    </section>
 
-            // State management
-            if (!isDeleting && charIndex === currentWord.length) {
-                // Finished typing word
-                isDeleting = true;
-                typeSpeed = 2000; // Wait 2 seconds
-                
-                // If this is the last word of the list, mark that we are about to finish the cycle
-                if(wordIndex === words.length - 1) {
-                    finishedCycle = true;
-                }
-            } else if (isDeleting && charIndex === 0) {
-                // Finished deleting
-                isDeleting = false;
-                
-                // LOGIC TO STOP AFTER ONE CYCLE WITH FADE TRANSITION
-                if (finishedCycle) {
-                    // 1. Add fade-out animation class to container
-                    rotatorContainer.classList.add('animate-fade-out');
-                    
-                    // 2. Wait for animation to finish (800ms matches CSS), then swap content
-                    setTimeout(() => {
-                        rotatorContainer.style.display = 'none'; // Remove from flow
-                        
-                        subtitleElement.classList.remove('hidden');
-                        subtitleElement.classList.add('animate-fade-in-up');
-                        
-                    }, 800);
-                    
-                    // Stop the typing loop completely
-                    return; 
-                }
+    <!-- ============ GET STARTED ============ -->
+    <section id="start" class="scroll-mt-20 py-24 px-4">
+      <div class="max-w-6xl mx-auto">
 
-                wordIndex = (wordIndex + 1) % words.length;
-                typeSpeed = 500; 
-            }
+        <div class="max-w-3xl mb-14 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-500 mb-4">Get started</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Check a dataset in two commands</h2>
+          <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            Point <code class="font-mono text-base text-brand-600 dark:text-brand-500">gb-qc</code> at your
+            sequences and give it somewhere to write. Requires Python 3.12 or newer.
+          </p>
+        </div>
 
-            setTimeout(type, typeSpeed);
+        <div class="grid gap-10 lg:grid-cols-2 items-start">
+
+          <!-- Terminal -->
+          <div class="reveal rounded-xl overflow-hidden border border-gray-200 dark:border-slate-800 shadow-sm">
+            <div class="flex items-center gap-2 px-4 py-3 bg-gray-100 dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700">
+              <span class="w-3 h-3 rounded-full bg-gray-300 dark:bg-slate-600"></span>
+              <span class="w-3 h-3 rounded-full bg-gray-300 dark:bg-slate-600"></span>
+              <span class="w-3 h-3 rounded-full bg-gray-300 dark:bg-slate-600"></span>
+              <span class="ml-2 text-xs font-mono text-gray-500 dark:text-gray-400">terminal</span>
+              <button id="copy-btn" class="ml-auto text-xs font-medium px-2.5 py-1 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500">
+                Copy
+              </button>
+            </div>
+            <pre id="snippet" class="p-5 text-sm leading-relaxed font-mono overflow-x-auto bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-200"><span class="text-gray-400 dark:text-gray-500"># install</span>
+pip install genomic-benchmarks-qc
+
+<span class="text-gray-400 dark:text-gray-500"># compare your classes</span>
+gb-qc evaluate-classes \
+  --input train.csv \
+  --out-folder qc-out
+
+<span class="text-gray-400 dark:text-gray-500"># check test-set leakage</span>
+gb-qc evaluate-splits \
+  --train-input train.csv \
+  --test-input test.csv \
+  --out-folder qc-out</pre>
+          </div>
+
+          <!-- What it checks -->
+          <div class="reveal" style="transition-delay: 0.1s;">
+            <h3 class="text-lg font-semibold mb-5">What it looks for</h3>
+            <ul class="space-y-3 text-gray-600 dark:text-gray-300">
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>Sequence length distributions that differ between classes</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>GC content, nucleotide and dinucleotide composition</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>Per-position give-aways, such as a shared adapter or a class-specific base</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>Duplicate sequences within and between classes</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>Near-duplicate overlap between train and test, via MMseqs2 similarity search</span></li>
+            </ul>
+
+            <h3 class="text-lg font-semibold mt-10 mb-5">How results are flagged</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-5">
+              Each check is scored by the AU-ROC of a classifier that sees only that one feature.
+            </p>
+            <div class="overflow-hidden rounded-lg border border-gray-200 dark:border-slate-800">
+              <table class="w-full text-sm">
+                <thead class="bg-gray-100 dark:bg-slate-800 text-left">
+                  <tr>
+                    <th class="px-4 py-2.5 font-semibold">Flag</th>
+                    <th class="px-4 py-2.5 font-semibold">AU-ROC</th>
+                    <th class="px-4 py-2.5 font-semibold">Meaning</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-slate-800 text-gray-600 dark:text-gray-300">
+                  <tr>
+                    <td class="px-4 py-2.5"><span class="font-semibold text-emerald-600 dark:text-emerald-400">Pass</span></td>
+                    <td class="px-4 py-2.5 font-mono">&le; 0.6</td>
+                    <td class="px-4 py-2.5">Classes not separable by this feature</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2.5"><span class="font-semibold text-amber-600 dark:text-amber-400">Warning</span></td>
+                    <td class="px-4 py-2.5 font-mono">&le; 0.7</td>
+                    <td class="px-4 py-2.5">A model could get some traction here</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2.5"><span class="font-semibold text-red-600 dark:text-red-400">Fail</span></td>
+                    <td class="px-4 py-2.5 font-mono">&gt; 0.7</td>
+                    <td class="px-4 py-2.5">Significant bias detected</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <a href="https://genomic-benchmarks.github.io/genomic-benchmarks-qc/examples/" class="inline-flex items-center gap-1.5 mt-8 font-medium text-brand-600 dark:text-brand-500 hover:underline">
+              See eight worked examples with live reports
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="scroll-mt-20 py-24 px-4 bg-white dark:bg-slate-950/40 border-t border-gray-100 dark:border-slate-800">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-5">Get involved</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+          Bug reports, feature requests and pull requests are all welcome. Open an issue on the relevant
+          repository, or write to us &mdash; especially if you have a dataset you would like to see checked
+          or included.
+        </p>
+        <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="https://github.com/genomic-benchmarks/genomic-benchmarks-qc/issues" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-white bg-brand-600 hover:bg-brand-500 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+            Open an issue
+          </a>
+          <a href="mailto:genomic.benchmarks@gmail.com"
+             class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium border border-gray-300 dark:border-slate-700 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500">
+            genomic.benchmarks@gmail.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-8 px-4 text-center text-sm text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-slate-800">
+    <p>&copy; 2026 Genomic Benchmarks. Released under the MIT license.</p>
+  </footer>
+
+  <script>
+    // --- 1. Typing Animation ---
+    const words = ["QC", "Datasets", "Leaderboard"];
+    const rotatorElement = document.getElementById('rotator');
+    const rotatorContainer = document.getElementById('rotator-container');
+    const subtitleElement = document.getElementById('subtitle');
+    const heroActions = document.getElementById('hero-actions');
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typeSpeed = 100;
+    let finishedCycle = false;
+
+    function revealSubtitle() {
+      rotatorContainer.style.display = 'none';
+      subtitleElement.classList.remove('hidden');
+      subtitleElement.classList.add('animate-fade-in-up');
+      heroActions.classList.remove('hidden');
+      heroActions.classList.add('flex', 'animate-fade-in-up');
+    }
+
+    function type() {
+      const currentWord = words[wordIndex];
+
+      if (isDeleting) {
+        rotatorElement.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+        typeSpeed = 50;
+      } else {
+        rotatorElement.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        typeSpeed = 150;
+      }
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        isDeleting = true;
+        typeSpeed = 2000;
+        if (wordIndex === words.length - 1) {
+          finishedCycle = true;
+        }
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+
+        if (finishedCycle) {
+          rotatorContainer.classList.add('animate-fade-out');
+          setTimeout(revealSubtitle, 800);
+          return;
         }
 
-        // Start animation one second after load
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(type, 1000); // Waits 1000ms (1 second) before starting
+        wordIndex = (wordIndex + 1) % words.length;
+        typeSpeed = 500;
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (prefersReducedMotion) {
+        rotatorElement.textContent = words[words.length - 1];
+        revealSubtitle();
+      } else {
+        setTimeout(type, 1000);
+      }
+    });
+
+    // --- 2. Theme Switcher ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      lightIcon.classList.remove('hidden');
+    } else {
+      document.documentElement.classList.remove('dark');
+      darkIcon.classList.remove('hidden');
+    }
+
+    themeToggleBtn.addEventListener('click', function () {
+      darkIcon.classList.toggle('hidden');
+      lightIcon.classList.toggle('hidden');
+
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+    });
+
+    // --- 3. Scroll reveal ---
+    const revealItems = document.querySelectorAll('.reveal');
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      revealItems.forEach(el => el.classList.add('is-visible'));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
         });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
+      revealItems.forEach(el => observer.observe(el));
+    }
 
-        // --- 2. Theme Switcher Logic ---
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const darkIcon = document.getElementById('theme-toggle-dark-icon');
-        const lightIcon = document.getElementById('theme-toggle-light-icon');
+    // --- 4. Copy the install snippet ---
+    const copyBtn = document.getElementById('copy-btn');
+    const snippet = document.getElementById('snippet');
 
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            lightIcon.classList.remove('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            darkIcon.classList.remove('hidden');
-        }
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(snippet.innerText);
+        copyBtn.textContent = 'Copied';
+      } catch {
+        copyBtn.textContent = 'Press Ctrl+C';
+      }
+      setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+    });
+  </script>
 
-        themeToggleBtn.addEventListener('click', function() {
-            darkIcon.classList.toggle('hidden');
-            lightIcon.classList.toggle('hidden');
-
-            if (localStorage.getItem('color-theme')) {
-                if (localStorage.getItem('color-theme') === 'light') {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                }
-            } else {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                }
-            }
-        });
-    </script>
 </body>
 </html>
-
-							<script>
-                            	
-							</script>
-                        </body>
-                        </html>
-                    
