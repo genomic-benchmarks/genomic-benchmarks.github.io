@@ -6,6 +6,11 @@
   <title>Genomic Benchmarks</title>
   <meta name="description" content="Quality-curated genomic benchmarks for fair and reproducible ML evaluation.">
 
+  <!-- Favicon: the org mark, inlined so the tab icon needs no extra request -->
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAA/1BMVEVrouROY6B2ndMgQ5UgRJZTd7h0or15oNYaPY8OVWMfP48sTJ6ZmcwcPpIaOo42WqR/f9Rdg79pjseEqd2GsOyw1+v//wAAAAB2nNJ7o9kgRZkeQpR3ndBwl84eQpR/f/8eQpOAqeN3nNF+p+AeQpQmRJQhRJYiSaJ1mtAAAP91m9B2nNEeQ5QWO5UA//91ms9Vqqqqqv8eQZN/f799p9UAAH8eQ5QAVaopSJIAf381OpZ/f395odf///8AP38bRY8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADcwcUZAAAAQHRSTlMUCGecZuwLnd0EMC4Fapj7Bv74nv8NAQD7/Pv5LQ/PAmv+qPySKs3+cAGR0zEOAVgDA0sECQKzAw8CCwLZAQQSYE28IAAAAiJJREFUeNptk+d24jAQhWVKSNtexiNbYMu9YQIJnfD+b7VXMm2ze3/4HEvfFE0R1OmdqAmWMqBCR7rnE4lDdyHstyio7kspsyVRGzK7IyCTK/BGNPCkUUzku1DEI0EvZ2BDzTID0B80tCMFB1C49y0hjP1xLD1vXHdBlWaLMPs0M0Cx2uJeyjGUxvQApLePTsQEwIpi+B9bpQF+YaZG1kelnKlYUQL7Md1ouiDKDRGWtBAbWgIIkrquH5/q4oQ8U4ko7CqEqJGgJzMjWZsULCGeK/gIcwAxHHiDABrMr2EWlP9kDisl3sc3KRTXPIrXUmtdKpF4RjE0f2/oX4m5SQFlyOL1xp5MTpq9Ql8PIrAA3oGr4n8eLCAl8rsjdIKEfyvxagHpPaLNXDpoj3JvxXmXQ0JOGbphBScfgFbUNv7ayVG3qBIfANcXRwSwzzv8YDfUALiz7T5K0DKLad2P+/HnIYh2es6vNYBGqYNsjoaaesvvjA6f35ejW2EL4IgUH7aOs3aaHrvsTxSqpBYmlO3mioL6UpWKOTf1mMxId81cYCabhpI0TTFQ90OOSrrb4dCOQ6V2024vtv3UCACXpMzI2aE0Uyv+Krw2IQ6iZx+JAC+Xzdpsk3WSPJlJfqk4Og/kZfXeiiSV8v4LnjkRkS0R59fNsqOUpJn3jaO2Sy/ct2b8rwDW6/enIaPUPox531Od/RUwC/wr12qqudK4PtkT/QHnaXECvsguswAAAABJRU5ErkJggg==">
+  <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+  <meta name="theme-color" content="#1f4491">
+
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -103,6 +108,7 @@
           <div class="hidden md:flex items-center space-x-1 text-sm font-medium">
             <a href="#why" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Why</a>
             <a href="#projects" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Projects</a>
+            <a href="#audit" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">The audit</a>
             <a href="#start" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Get started</a>
             <a href="#contact" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Contact</a>
           </div>
@@ -180,7 +186,8 @@
           </p>
           <p>
             These flaws are easy to introduce and hard to spot by eye. We build the tools that find them,
-            and curate the datasets that don't have them, so that benchmark results mean what they claim to.
+            publish what those tools measured on the benchmarks already in common use, and standardise the
+            datasets so that a reported number can be read against what its data makes possible.
           </p>
         </div>
       </div>
@@ -194,7 +201,7 @@
           <p class="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-500 mb-4">Projects</p>
           <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Three pieces, one ecosystem</h2>
           <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            Check a dataset, get a clean one, compare methods on it.
+            Measure your own dataset, get an audited one in a standard format, compare methods on it.
           </p>
         </div>
 
@@ -218,15 +225,16 @@
             </div>
           </article>
 
-          <!-- Datasets -->
+          <!-- Data: the audited corpus, in code -->
           <article class="reveal flex flex-col p-7 rounded-xl border border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-900" style="transition-delay: 0.1s;">
             <span class="self-start mb-4 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-700 dark:bg-slate-800 dark:text-gray-300">
               In development
             </span>
             <h3 class="font-mono text-lg font-semibold mb-3">genomic-benchmarks-data</h3>
             <p class="text-gray-600 dark:text-gray-300 leading-relaxed flex-1">
-              Standardized, metadata-rich access to curated DNA and RNA datasets &mdash; every one of them
-              shipped with the QC report that says what it is and is not suitable for.
+              Standardized, metadata-rich access to 93 curated DNA and RNA datasets from seven collections.
+              One layout, fixed splits and stable sequence IDs, with each dataset's QC results returned
+              from the same package as the data.
             </p>
             <div class="mt-6 text-sm text-gray-400 dark:text-gray-500">Coming soon</div>
           </article>
@@ -252,12 +260,104 @@
       </div>
     </section>
 
+    <!-- ============ THE AUDIT ============ -->
+    <section id="audit" class="scroll-mt-20 py-24 px-4 border-b border-gray-100 dark:border-slate-800">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="max-w-3xl mb-14 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-500 mb-4">The audit</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
+            Ten checks, 93 published benchmarks, and four that nothing was flagged on.
+          </h2>
+          <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            We pointed the tool at the benchmarks people already train on. Seven collections, curated
+            into one format and put through the same ten checks &mdash; so these are measurements on
+            published data, browsable per dataset, with the report behind every number.
+          </p>
+        </div>
+
+        <!-- headline numbers -->
+        <div class="reveal grid gap-px sm:grid-cols-2 lg:grid-cols-4 rounded-xl overflow-hidden border border-gray-200 dark:border-slate-800 bg-gray-200 dark:bg-slate-800">
+
+          <div class="bg-white dark:bg-slate-900 p-6">
+            <div class="text-4xl font-semibold tracking-tight">93</div>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 leading-snug">
+              Datasets audited, across seven collections
+            </p>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 p-6">
+            <div class="text-4xl font-semibold tracking-tight">57</div>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 leading-snug">
+              Flagged <span class="font-semibold text-gray-600 dark:text-gray-300">Fail</span> on at least
+              one of the ten checks
+            </p>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 p-6">
+            <div class="text-4xl font-semibold tracking-tight">0.67</div>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 leading-snug">
+              Median AU-ROC recovered by one hand-crafted feature on its own
+            </p>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 p-6">
+            <div class="text-4xl font-semibold tracking-tight">6</div>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 leading-snug">
+              Datasets where half or more of the held-out split is also in training
+            </p>
+          </div>
+
+        </div>
+
+        <div class="mt-12 grid gap-10 lg:grid-cols-2 items-start reveal" style="transition-delay: 0.1s;">
+
+          <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p>
+              Four of the 92 datasets that define a training split had nothing flagged on any check. That
+              is not a verdict on the other 88, and a
+              <span class="font-semibold text-gray-700 dark:text-gray-200">Pass</span> is not a clean bill
+              of health: it establishes that <em>these ten checks</em> do not separate the classes, so
+              every number above is a lower bound on what a learned model could recover.
+            </p>
+            <p>
+              The aggregate is not the useful part. What tells you what to control for is the name of the
+              feature that separated <em>your</em> benchmark and the distribution it was measured on &mdash;
+              so the audit is published per dataset, not as a headline.
+            </p>
+          </div>
+
+          <div class="rounded-xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-7">
+            <h3 class="text-lg font-semibold mb-4">Look up a dataset</h3>
+            <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>All 93, filtered and grouped by collection, task, molecule and species</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>The flag on each of the ten checks, and the strongest single feature by name</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>423 standalone HTML reports, one per comparison, linked from the row</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>Archived at Zenodo with a DOI, so a flag stays citable</span></li>
+            </ul>
+
+            <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
+              <span class="text-gray-400 dark:text-gray-500">Catalogue coming soon</span>
+              <a href="https://genomic-benchmarks.github.io/genomic-benchmarks-qc/reports/composition-bias/split/sequence/train_vs_test/gb-qc-report.html"
+                 class="text-brand-600 dark:text-brand-500 hover:underline">See what a report looks like &rarr;</a>
+            </div>
+
+            <p class="mt-6 pt-6 border-t border-gray-100 dark:border-slate-800 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+              Reading it in a browser is one of two routes to the same measurements. The other is
+              <a href="#data" class="font-mono text-brand-600 dark:text-brand-500 hover:underline">genomic-benchmarks-data</a>,
+              which ships these datasets and returns their QC results to your code.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ GET STARTED ============ -->
     <section id="start" class="scroll-mt-20 py-24 px-4">
       <div class="max-w-6xl mx-auto">
 
         <div class="max-w-3xl mb-14 reveal">
-          <p class="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-500 mb-4">Get started</p>
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-500 mb-4">Score your own data</p>
           <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Check a dataset in two commands</h2>
           <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
             Point <code class="font-mono text-base text-brand-600 dark:text-brand-500">gb-qc</code> at your
@@ -274,7 +374,7 @@
               <span class="w-3 h-3 rounded-full bg-gray-300 dark:bg-slate-600"></span>
               <span class="w-3 h-3 rounded-full bg-gray-300 dark:bg-slate-600"></span>
               <span class="ml-2 text-xs font-mono text-gray-500 dark:text-gray-400">terminal</span>
-              <button id="copy-btn" class="ml-auto text-xs font-medium px-2.5 py-1 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500">
+              <button data-copy="snippet" class="ml-auto text-xs font-medium px-2.5 py-1 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500">
                 Copy
               </button>
             </div>
@@ -347,6 +447,74 @@ gb-qc evaluate-splits \
       </div>
     </section>
 
+    <!-- ============ USE THE CORPUS ============ -->
+    <section id="data" class="scroll-mt-20 py-24 px-4 border-t border-gray-100 dark:border-slate-800">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="max-w-3xl mb-14 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-500 mb-4">Use the audited corpus</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Or start from a dataset that has already been checked</h2>
+          <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            The same 93 datasets, in code: one format, fixed splits, stable sequence IDs, and the audit's
+            results returned alongside the data rather than looked up somewhere else.
+          </p>
+        </div>
+
+        <div class="grid gap-10 lg:grid-cols-2 items-start">
+
+          <!-- Snippet -->
+          <div class="reveal rounded-xl overflow-hidden border border-gray-200 dark:border-slate-800 shadow-sm">
+            <div class="flex items-center gap-2 px-4 py-3 bg-gray-100 dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700">
+              <span class="w-3 h-3 rounded-full bg-gray-300 dark:bg-slate-600"></span>
+              <span class="w-3 h-3 rounded-full bg-gray-300 dark:bg-slate-600"></span>
+              <span class="w-3 h-3 rounded-full bg-gray-300 dark:bg-slate-600"></span>
+              <span class="ml-2 text-xs font-mono text-gray-500 dark:text-gray-400">python</span>
+              <button data-copy="snippet-data" class="ml-auto text-xs font-medium px-2.5 py-1 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500">
+                Copy
+              </button>
+            </div>
+            <pre id="snippet-data" class="p-5 text-sm leading-relaxed font-mono overflow-x-auto bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-200"><span class="text-gray-400 dark:text-gray-500"># pip install genomic-benchmarks-data</span>
+import genomic_benchmarks_data as gbd
+
+<span class="text-gray-400 dark:text-gray-500"># a split, checked against its own sha256</span>
+train = gbd.load_dataset(
+    "genomic-benchmarks", "human_ocr_ensembl", "train")
+
+<span class="text-gray-400 dark:text-gray-500"># what the audit found, per dataset and check</span>
+qc = gbd.load_qc_results("class")
+
+<span class="text-gray-400 dark:text-gray-500"># only where every scored check returned Pass</span>
+gbd.filter_datasets_by_qc("class", flag="Pass")</pre>
+          </div>
+
+          <!-- What you get -->
+          <div class="reveal" style="transition-delay: 0.1s;">
+            <h3 class="text-lg font-semibold mb-5">What comes with it</h3>
+            <ul class="space-y-3 text-gray-600 dark:text-gray-300">
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>93 datasets from seven collections, in one layout with one metadata record each</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>Fixed splits and stable sequence IDs, so two papers can report on the same rows</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>The audit&rsquo;s flags and probe scores for every dataset, from the same call</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>Republished only where the licence allows it; where the licensor declined, a hash of each split and a pointer upstream</span></li>
+            </ul>
+
+            <p class="mt-8 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+              Selecting on a flag is a choice, not a recommendation. A
+              <span class="font-semibold text-gray-600 dark:text-gray-300">Pass</span> says these ten checks
+              did not separate the classes &mdash; it does not say nothing else will.
+            </p>
+
+            <div class="mt-6 text-sm font-medium text-gray-400 dark:text-gray-500">Coming soon</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEADERBOARD ============ -->
+    <!-- Add the fourth section here when the leaderboard launches: the ten Core Set
+         benchmarks, the ranking tables, and how to submit. Same shape as the two
+         sections above - what it is on the left, what you get on the right. -->
+
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="scroll-mt-20 py-24 px-4 bg-white dark:bg-slate-950/40 border-t border-gray-100 dark:border-slate-800">
       <div class="max-w-3xl mx-auto text-center reveal">
@@ -377,7 +545,7 @@ gb-qc evaluate-splits \
 
   <script>
     // --- 1. Typing Animation ---
-    const words = ["QC", "Datasets", "Leaderboard"];
+    const words = ["QC", "Datasets", "Audit", "Leaderboard"];
     const rotatorElement = document.getElementById('rotator');
     const rotatorContainer = document.getElementById('rotator-container');
     const subtitleElement = document.getElementById('subtitle');
@@ -482,18 +650,18 @@ gb-qc evaluate-splits \
       revealItems.forEach(el => observer.observe(el));
     }
 
-    // --- 4. Copy the install snippet ---
-    const copyBtn = document.getElementById('copy-btn');
-    const snippet = document.getElementById('snippet');
-
-    copyBtn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(snippet.innerText);
-        copyBtn.textContent = 'Copied';
-      } catch {
-        copyBtn.textContent = 'Press Ctrl+C';
-      }
-      setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+    // --- 4. Copy a snippet ---
+    document.querySelectorAll('[data-copy]').forEach((btn) => {
+      const pre = document.getElementById(btn.dataset.copy);
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(pre.innerText);
+          btn.textContent = 'Copied';
+        } catch {
+          btn.textContent = 'Press Ctrl+C';
+        }
+        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+      });
     });
   </script>
 
