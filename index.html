@@ -110,6 +110,7 @@
             <a href="#projects" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Projects</a>
             <a href="#audit" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">The audit</a>
             <a href="#start" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Get started</a>
+            <a href="#community" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Community</a>
             <a href="#contact" class="px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-500 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">Contact</a>
           </div>
 
@@ -514,6 +515,57 @@ gbd.filter_datasets_by_qc("class", flag="Pass")</pre>
     <!-- Add the fourth section here when the leaderboard launches: the ten Core Set
          benchmarks, the ranking tables, and how to submit. Same shape as the two
          sections above - what it is on the left, what you get on the right. -->
+
+    <!-- ============ COMMUNITY ============ -->
+    <section id="community" class="scroll-mt-20 py-24 px-4 border-t border-gray-100 dark:border-slate-800">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="max-w-3xl mb-14 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-500 mb-4">Community</p>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Build the next part with us</h2>
+          <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            The audit measures datasets. The next question is about models &mdash; and we are taking it to a hackathon.
+          </p>
+        </div>
+
+        <!-- BioHackathon Germany 2026 -->
+        <article class="reveal grid gap-10 lg:grid-cols-5 p-7 md:p-10 rounded-xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-950/40 hover:border-brand-500 dark:hover:border-brand-500 transition-colors">
+
+          <div class="lg:col-span-3 flex flex-col">
+            <span class="self-start mb-4 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-100 text-brand-900 dark:bg-brand-900 dark:text-brand-100">
+              Upcoming &middot; 7&ndash;11 December 2026
+            </span>
+            <h3 class="text-2xl font-semibold tracking-tight mb-2">5th BioHackathon Germany</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+              Göttingen &middot; organised by de.NBI &amp; ELIXIR-DE
+            </p>
+            <p class="text-lg font-medium mb-3">Benchmarking and interpreting RNA foundation models</p>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed flex-1">
+              In most of the benchmarks we audited, a single sequence feature already recovers part of the
+              label. At the hackathon we take the question from datasets to models, for RNA: curate new RNA
+              benchmarks with QC reports and FAIR metadata, and test whether foundation models rely on the
+              shortcuts the checks find, or on the biology.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row gap-3">
+              <a href="https://www.denbi.de/de-nbi-events/2051-5th-biohackathon-germany" target="_blank" rel="noopener"
+                 class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-white bg-brand-600 hover:bg-brand-500 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+                Join the project
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2">
+            <h4 class="text-lg font-semibold mb-5">What we will work on</h4>
+            <ul class="space-y-3 text-gray-600 dark:text-gray-300">
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>RNA benchmark datasets &mdash; splicing, RNA&ndash;protein binding, structure and translation &mdash; curated with QC reports and FAIR metadata</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>New checks in <span class="font-mono text-sm">genomic-benchmarks-qc</span> for per-nucleotide, variant-effect and multi-label tasks</span></li>
+              <li class="flex gap-3"><span class="text-brand-600 dark:text-brand-500 mt-0.5" aria-hidden="true">&rarr;</span><span>Diagnostics that ask whether a model&rsquo;s embeddings encode the flagged features, and what its score is worth once they are matched out</span></li>
+            </ul>
+          </div>
+
+        </article>
+      </div>
+    </section>
 
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="scroll-mt-20 py-24 px-4 bg-white dark:bg-slate-950/40 border-t border-gray-100 dark:border-slate-800">
